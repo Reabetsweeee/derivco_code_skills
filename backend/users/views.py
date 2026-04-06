@@ -1,5 +1,5 @@
 from rest_framework import generics , permissions
-from .serializers import RegisterSerializer,UserSerializer
+from .serializers import RegisterSerializer,UserProfileSerializer
 from .models import CustomUser
 
 class RegisterView(generics.CreateAPIView):
@@ -9,6 +9,6 @@ class RegisterView(generics.CreateAPIView):
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserProfileSerializer
     lookup_field = 'username'
 

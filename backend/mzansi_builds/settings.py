@@ -3,12 +3,13 @@ from decouple import config
 from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']  
+SECRET_KEY = config('SECRET_KEY', default='dev-secret-key-change-in-production')
 
-#apps making up mzansi_builds
+DEBUG = config('DEBUG', default=True, cast=bool)
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -17,17 +18,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #third party apps   
+    # Third party
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
 
-    #our apps
-    'users',
-    'projects',
-    'interactions',
-    'milestones',
-
+    # Our apps
+    'users.apps.UsersConfig',
+    'projects.apps.ProjectsConfig',
+    'interactions.apps.InteractionsConfig',
+    'milestones.apps.MilestonesConfig',
 ]
 
 MIDDLEWARE = [
@@ -42,6 +42,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mzansi_builds.urls'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -58,27 +59,24 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mzansi_builds.wsgi.application' 
+WSGI_APPLICATION = 'mzansi_builds.wsgi.application'
 
-#postgreSQL database configuration
 DATABASES = {
-    'default': {        
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
+        'NAME': config('DB_NAME', default='mzansi_builds'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD', default=''),
         'HOST': config('DB_HOST', default='localhost'),
         'PORT': config('DB_PORT', default='5432'),
-    }   
-
+    }
 }
 
-#pasword rules
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 LANGUAGE_CODE = 'en-us'
@@ -87,32 +85,29 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#custom user model
 AUTH_USER_MODEL = 'users.CustomUser'
 
-#Django REST Framework configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-  ) 
+    ),
 }
 
-#Simple JWT configuration
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'AUTH_HEADER_TYPES': ('Bearer',),
-}   
+}
 
-#CORS configuration
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
-    'http://127.0.1:8080',
+    'http://127.0.0.1:8080',
     'http://localhost:5500',
-    'http://127.0.1:5500',
+    'http://127.0.0.1:5500',
 ]
