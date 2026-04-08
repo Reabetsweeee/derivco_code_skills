@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Mzansi Builds</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">🟢 Mzansi Builds</a>
+    <div class="nav-links">
+      <a href="index.html">Feed</a>
+      <a href="register.html">Register</a>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 480px; margin-top: 4rem;">
+    <h2 class="page-title">Login</h2>
+
+    <div id="error-msg" class="alert alert-error" style="display:none;"></div>
+
+    <div class="card">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="your_username" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="••••••••" />
+      </div>
+      <button class="btn btn-green" id="login-btn" style="width:100%;">Login</button>
+    </div>
+
+    <p style="text-align:center; margin-top:1rem; color: var(--text-muted);">
+      No account? <a href="register.html">Register here</a>
+    </p>
+  </div>
+
+  <script type="module" src="../js/auth.js"></script>
+</body>
+</html>

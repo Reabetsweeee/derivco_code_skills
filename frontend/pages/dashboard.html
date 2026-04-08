@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | Mzansi Builds</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">🟢 Mzansi Builds</a>
+    <div class="nav-links">
+      <a href="index.html">Feed</a>
+      <a href="celebration.html">Celebration Wall</a>
+      <span id="nav-username" style="color: var(--green); margin-left:1.5rem;"></span>
+      <a href="#" id="logout-btn" style="margin-left:1.5rem;">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="grid-2">
+
+      <!-- Left: Create Project -->
+      <div>
+        <h2 class="page-title">New Project</h2>
+        <div class="card">
+          <div class="form-group">
+            <label>Project Title</label>
+            <input type="text" id="proj-title" placeholder="My Awesome Project" />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="proj-desc" rows="4" placeholder="What are you building?"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Tech Stack</label>
+            <input type="text" id="proj-tech" placeholder="Django, React, PostgreSQL" />
+          </div>
+          <div class="form-group">
+            <label>GitHub URL</label>
+            <input type="url" id="proj-github" placeholder="https://github.com/..." />
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="proj-status">
+              <option value="planning">Planning</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <button class="btn btn-green" id="create-proj-btn" style="width:100%;">Create Project</button>
+          <div id="proj-msg" class="alert" style="display:none; margin-top:1rem;"></div>
+        </div>
+      </div>
+
+      <!-- Right: My Projects -->
+      <div>
+        <h2 class="page-title">My Projects</h2>
+        <div id="my-projects">
+          <p style="color: var(--text-muted);">Loading your projects...</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="../js/dashboard.js"></script>
+</body>
+</html>
