@@ -5,7 +5,7 @@ class Milestone(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='milestones')
     title = models.CharField(max_length=200)
     description = models.TextField()
-    due_date = models.DateField()
+    due_date = models.DateField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
