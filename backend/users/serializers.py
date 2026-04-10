@@ -1,15 +1,26 @@
-from rest_framework import Userserializers
+from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .models import CustomUser
 
-class RegisterSerializer(Userserializers.ModelSerializer):
+
+class RegisterSerializer(serializers.ModelSerializer):
     """handle user registration and password validation"""
-   
-    password = Userserializers.CharField(write_only=True, validators=[validate_password])
+
+    password = serializers.CharField(write_only=True, validators=[validate_password])
 
     class Meta:
         model = CustomUser
-        fields = ('id','username', 'email', 'password', 'bio', 'github_url', 'google_url', 'linkedin_url', 'avatar')
+        fields = (
+            'id',
+            'username',
+            'email',
+            'password',
+            'bio',
+            'github_url',
+            'google_url',
+            'linkedin_url',
+            'avatar'
+        )
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
@@ -21,14 +32,25 @@ class RegisterSerializer(Userserializers.ModelSerializer):
             linkedin_url=validated_data.get('linkedin_url', ''),
             avatar=validated_data.get('avatar', '')
         )
+
         user.set_password(validated_data['password'])
         user.save()
         return user
 
-class UserProfileSerializer(Userserializers.ModelSerializer):
+
+class UserProfileSerializer(serializers.ModelSerializer):
     """handle user profile updates"""
 
     class Meta:
         model = CustomUser
-        fields = ('id','username', 'email', 'bio', 'github_url', 'google_url', 'linkedin_url', 'avatar')
+        fields = (
+            'id',
+            'username',
+            'email',
+            'bio',
+            'github_url',
+            'google_url',
+            'linkedin_url',
+            'avatar'
+        )
         read_only_fields = ('username', 'email')

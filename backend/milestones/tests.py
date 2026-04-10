@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from projects.models import Project
 from .models import Milestone
+import datetime
 
 User = get_user_model()
 
@@ -21,7 +22,8 @@ class MilestoneModelTest(TestCase):
         self.milestone = Milestone.objects.create(
             project=self.project,
             title='First milestone',
-            description='Get the backend working'
+            description='Get the backend working',
+            due_date=datetime.date(2026, 12, 31)
         )
 
     def test_milestone_created(self):
